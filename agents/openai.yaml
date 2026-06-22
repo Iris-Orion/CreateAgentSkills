@@ -1,4 +1,4 @@
 interface:
   display_name: "Coolpaper"
-  short_description: "Read academic papers through seven focused questions."
-  default_prompt: "Use $coolpaper to analyze this academic paper through the seven-question framework."
+  short_description: "Read papers with three-pass depth control and Q1-Q7 analysis."
+  default_prompt: "Use $coolpaper to read this academic paper with the three-pass method and Q1-Q7 framework."
