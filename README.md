@@ -1,6 +1,6 @@
 # Coolpaper
 
-`coolpaper` 是一个用于阅读和分析学术论文的 Codex skill。它融合了 S. Keshav 的三遍阅读法和 Q1-Q7 论文分析框架，适合分析 PDF、arXiv 论文、DOI 链接、会议/期刊论文、本地论文文本、相关工作章节、引用列表或用户粘贴的论文内容。
+`coolpaper` 是一个用于阅读和分析学术论文的 Agent Skill，可被 Claude Code 和 Codex 使用。它融合了 S. Keshav 的三遍阅读法和 Q1-Q7 论文分析框架，适合分析 PDF、arXiv 论文、DOI 链接、会议/期刊论文、本地论文文本、相关工作章节、引用列表或用户粘贴的论文内容。
 
 ## 功能
 
@@ -15,6 +15,69 @@
 - 用简洁中文总结论文主要内容
 - 给出继续学习论文的路径
 - 支持文献综述中的论文聚类、关键作者/会议期刊识别和下一步阅读清单
+
+## 安装到 Claude Code
+
+Claude Code 会从 `~/.claude/skills/<skill-name>/SKILL.md` 加载个人 skills，也可以从项目内 `.claude/skills/<skill-name>/SKILL.md` 加载项目级 skills。本仓库根目录已经是一个完整 skill，因此直接克隆到 `coolpaper` 目录即可。
+
+### 个人级安装
+
+Linux / macOS:
+
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git ~/.claude/skills/coolpaper
+```
+
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.claude\skills"
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git "$env:USERPROFILE\.claude\skills\coolpaper"
+```
+
+安装后启动或重启 Claude Code：
+
+```bash
+claude
+```
+
+在 Claude Code 中直接调用：
+
+```text
+/coolpaper analyze this paper: <论文链接、本地路径或正文>
+```
+
+也可以让 Claude Code 根据 `SKILL.md` 的 `description` 自动触发，但显式调用 `/coolpaper` 最稳定。
+
+### 项目级安装
+
+如果只想在某个项目中启用：
+
+```bash
+mkdir -p .claude/skills
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git .claude/skills/coolpaper
+```
+
+在该项目目录中运行 `claude` 后使用：
+
+```text
+/coolpaper 对这篇论文做 second pass，并围绕 Q1-Q7 分析：<论文路径或链接>
+```
+
+### Claude Code 目录结构
+
+安装后应包含：
+
+```text
+~/.claude/skills/coolpaper
+├── SKILL.md
+├── README.md
+└── agents
+    └── openai.yaml
+```
+
+`SKILL.md` 是 Claude Code 需要的入口文件；`agents/openai.yaml` 是给其他支持该元数据的 Agent 使用的附加信息，Claude Code 可忽略。
 
 ## 安装到 Codex
 
@@ -95,6 +158,22 @@ Use the instructions in coolpaper/SKILL.md to analyze this academic paper throug
 如果某个 agent 支持项目级规则文件，可以把 `SKILL.md` 的正文复制到该软件推荐的规则文件中；如果它支持知识库上传，可以直接上传 `SKILL.md`。
 
 ## 使用
+
+### Claude Code
+
+在 Claude Code 中显式调用：
+
+```text
+/coolpaper analyze this paper: <论文链接或本地路径>
+```
+
+中文示例：
+
+```text
+/coolpaper 使用 Q1-Q7 阅读这篇论文：C:\papers\example.pdf
+```
+
+### Codex
 
 在 Codex 中显式调用：
 
