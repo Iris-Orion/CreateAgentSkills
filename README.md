@@ -12,30 +12,83 @@
 - 用简洁中文总结论文主要内容
 - 给出继续学习论文的路径
 
-## 安装
+## 安装到 Codex
 
-推荐安装到 Codex 的 skills 目录：
+推荐把仓库安装到 Codex 的 skills 目录，目录名保持为 `coolpaper`。
+
+### Windows
 
 ```powershell
 cd $env:USERPROFILE\.codex\skills
 git clone https://github.com/Iris-Orion/CreateAgentSkills.git coolpaper
 ```
 
+### Linux / macOS
+
+```bash
+mkdir -p ~/.codex/skills
+cd ~/.codex/skills
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git coolpaper
+```
+
+### 使用 CODEX_HOME
+
+如果你设置了 `CODEX_HOME`，把 skill 安装到该目录下的 `skills` 文件夹：
+
+```bash
+mkdir -p "$CODEX_HOME/skills"
+cd "$CODEX_HOME/skills"
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git coolpaper
+```
+
+Windows PowerShell:
+
+```powershell
+New-Item -ItemType Directory -Force "$env:CODEX_HOME\skills"
+cd "$env:CODEX_HOME\skills"
+git clone https://github.com/Iris-Orion/CreateAgentSkills.git coolpaper
+```
+
 安装后目录结构应类似：
 
 ```text
-%USERPROFILE%\.codex\skills\coolpaper
+~/.codex/skills/coolpaper
 ├── SKILL.md
 ├── README.md
 └── agents
     └── openai.yaml
 ```
 
-如果你已经把仓库克隆到了其他位置，也可以把整个 `coolpaper` 目录复制到：
+Windows 默认路径对应为：
 
 ```text
 %USERPROFILE%\.codex\skills\coolpaper
 ```
+
+如果你已经把仓库克隆到了其他位置，也可以把整个 `coolpaper` 目录复制到上面的 skills 目录。
+
+## 在其他 agent 软件中使用
+
+不同 agent 软件的 skill / memory / custom instruction 机制不同，但 `coolpaper` 的核心逻辑都在 `SKILL.md` 中。通用接入方式是：
+
+1. 把本仓库克隆到本地。
+2. 在你的 agent 软件中打开或引用 `SKILL.md`。
+3. 将 `SKILL.md` 的内容作为该 agent 的自定义指令、项目规则、system prompt、memory、knowledge file 或 reusable prompt。
+4. 使用时明确要求 agent 按 `coolpaper` 的 Q1-Q7 框架分析论文。
+
+通用提示词示例：
+
+```text
+Use the instructions in coolpaper/SKILL.md to analyze this academic paper through Q1-Q7: <论文链接、本地路径或正文>
+```
+
+中文提示词示例：
+
+```text
+请按照 coolpaper/SKILL.md 中的论文阅读框架，围绕 Q1-Q7 分析这篇论文：<论文链接、本地路径或正文>
+```
+
+如果某个 agent 支持项目级规则文件，可以把 `SKILL.md` 的正文复制到该软件推荐的规则文件中；如果它支持知识库上传，可以直接上传 `SKILL.md`。
 
 ## 使用
 
