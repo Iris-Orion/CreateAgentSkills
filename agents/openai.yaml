@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coolpaper"
+  short_description: "Read academic papers through seven focused questions."
+  default_prompt: "Use $coolpaper to analyze this academic paper through the seven-question framework."
